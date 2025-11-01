@@ -8,11 +8,14 @@ public class Player : MonoBehaviour
     // SerializeField allows private fields to be manipulated in the engine
     [SerializeField] private float moveSpeed = 7f;
     [SerializeField] private GameInput gameInput;
+    [SerializeField] private LayerMask countersLayerMask;
 
     private bool _isWalking;
+    private Vector3 _lastInteractDir;
     private void Update()
     {
         HandleMovement();
+        HandleInteractions();
     }
 
     public bool IsWalking()
@@ -25,14 +28,20 @@ public class Player : MonoBehaviour
         Vector2 inputVector = gameInput.GetMovementVectorNormalized();
         Vector3 moveDir = new Vector3(inputVector.x, 0f, inputVector.y);
 
-        float interactDistance = 2f;
-        if (Physics.Raycast(transform.position, moveDir, out RaycastHit raycastHit, interactDistance))
+        // Ensures that the engine knows that something is in front of the player even without moving
+        if (moveDir != Vector3.zero)
         {
-            Debug.Log(raycastHit.transform);
+            _lastInteractDir = moveDir;
         }
-        else
+        float interactDistance = 2f;
+        if (Physics.Raycast(transform.position,
+                _lastInteractDir, out RaycastHit raycastHit, interactDistance, countersLayerMask))
         {
-            Debug.Log("-");
+            if (raycastHit.transform.TryGetComponent(out ClearCounter clearCounter))
+            {
+                // Has clear counter
+                clearCounter.Interact();
+            }
         }
     }
 
