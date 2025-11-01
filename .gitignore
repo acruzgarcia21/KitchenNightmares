@@ -1,0 +1,19 @@
+# ========== UNITY ==========
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+[Bb]uild*/
+[Ll]ogs/
+UserSettings/
+MemoryCaptures/
+*.csproj
+*.sln
+
+# ========== IDE ==========
+.vscode/
+.idea/
+.vs/
+
+# ========== OS ==========
+.DS_Store
+Thumbs.db
