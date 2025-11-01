@@ -80,7 +80,3 @@ Screenshots and gameplay clips will be added once core mechanics are finalized.
 San Francisco State University – Computer Science Major  
 - [GitHub](https://github.com/acruzgarcia21)  
 - [LinkedIn](https://linkedin.com/in/acruzgarcia)
-
----
-
-> “Tutorials show you what’s possible. Rebuilding it yourself teaches you *why* it works.”
