@@ -5,6 +5,14 @@ using UnityEngine.Serialization;
 
 public class Player : MonoBehaviour
 {
+    public static Player Instance { get; private set; }
+    public event EventHandler OnSelectedCounterChanged;
+
+    public class OnSelectedCounterChangedEventArgs : EventArgs
+    {
+        public ClearCounter selectedCounter;
+    }
+    
     // SerializeField allows private fields to be manipulated in the engine
     [SerializeField] private float moveSpeed = 7f;
     [SerializeField] private GameInput gameInput;
@@ -12,6 +20,29 @@ public class Player : MonoBehaviour
 
     private bool _isWalking;
     private Vector3 _lastInteractDir;
+    private ClearCounter _selectedCounter;
+
+    private void Awake()
+    {
+        if (Instance != null)
+        {
+            Debug.Log("There is more than one instance!");
+        }
+        Instance = this;
+    }
+
+    private void Start()
+    {
+        gameInput.OnInteractAction += GameInput_OnInteractAction;
+    }
+
+    private void GameInput_OnInteractAction(object sender, System.EventArgs e)
+    {
+        if (_selectedCounter != null)
+        {
+            _selectedCounter.Interact();
+        }
+    }
     private void Update()
     {
         HandleMovement();
@@ -37,11 +68,23 @@ public class Player : MonoBehaviour
         if (Physics.Raycast(transform.position,
                 _lastInteractDir, out RaycastHit raycastHit, interactDistance, countersLayerMask))
         {
+            // Checks and returns if the player has hit the counter
             if (raycastHit.transform.TryGetComponent(out ClearCounter clearCounter))
             {
                 // Has clear counter
-                clearCounter.Interact();
+                if (clearCounter != _selectedCounter)
+                {
+                    SetSelectedCounter(_selectedCounter);
+                }
             }
+            else
+            {
+                SetSelectedCounter(null);
+            }
+        }
+        else
+        {
+            SetSelectedCounter(null);
         }
     }
 
@@ -108,13 +151,17 @@ public class Player : MonoBehaviour
         }
 
         _isWalking = moveDir != Vector3.zero;
-
-        // Functions that update the position of where the player is looking at:
-        //      .position
-        //      .eulerAngles
-        //      .lookAt
-        //      .forward
+        
         const float rotateSpeed = 12f;
         transform.forward = Vector3.Slerp(transform.forward, moveDir, Time.deltaTime * rotateSpeed);
+    }
+
+    private void SetSelectedCounter(ClearCounter selectedCounter)
+    {
+        this._selectedCounter = selectedCounter;
+        OnSelectedCounterChanged?.Invoke(this, new OnSelectedCounterChangedEventArgs
+        {
+            selectedCounter = selectedCounter
+        });
     }
 }

@@ -9,7 +9,6 @@ public class GameInput : MonoBehaviour
     {
         _playerInputActions = new PlayerInputActions();
         _playerInputActions.Player.Enable();
-
         _playerInputActions.Player.Interact.performed += Interact_performed;
     }
 
