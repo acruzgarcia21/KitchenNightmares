@@ -341,6 +341,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -4925581266434460573, guid: dadeceaccc076db4299d51c3082e1682, type: 3}
+      propertyPath: tomatoPrefab
+      value: 
+      objectReference: {fileID: 5645331229338821543, guid: a9c12dadd890c76498c61fa0dbb132cc, type: 3}
+    - target: {fileID: -4925581266434460573, guid: dadeceaccc076db4299d51c3082e1682, type: 3}
+      propertyPath: kitchenObjectSo
+      value: 
+      objectReference: {fileID: 11400000, guid: a33a016c82690c64bb620d66a0da7606, type: 2}
+    - target: {fileID: 2849328473685701769, guid: dadeceaccc076db4299d51c3082e1682, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4377858703689639778, guid: dadeceaccc076db4299d51c3082e1682, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1.49
@@ -920,6 +932,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2849328473685701769, guid: dadeceaccc076db4299d51c3082e1682, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4377858703689639778, guid: dadeceaccc076db4299d51c3082e1682, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -959,6 +975,14 @@ PrefabInstance:
     - target: {fileID: 4377858703689639778, guid: dadeceaccc076db4299d51c3082e1682, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7280588180227776829, guid: dadeceaccc076db4299d51c3082e1682, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 1a0afd856a35421469b28b916116fd9c, type: 2}
+    - target: {fileID: 7923188713777075052, guid: dadeceaccc076db4299d51c3082e1682, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8072110844707381441, guid: dadeceaccc076db4299d51c3082e1682, type: 3}
       propertyPath: m_Name

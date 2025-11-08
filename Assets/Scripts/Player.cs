@@ -6,11 +6,11 @@ using UnityEngine.Serialization;
 public class Player : MonoBehaviour
 {
     public static Player Instance { get; private set; }
-    public event EventHandler OnSelectedCounterChanged;
+    public event EventHandler<OnSelectedCounterChangedEventArgs> OnSelectedCounterChanged;
 
     public class OnSelectedCounterChangedEventArgs : EventArgs
     {
-        public ClearCounter selectedCounter;
+        public ClearCounter SelectedCounter;
     }
     
     // SerializeField allows private fields to be manipulated in the engine
@@ -74,7 +74,7 @@ public class Player : MonoBehaviour
                 // Has clear counter
                 if (clearCounter != _selectedCounter)
                 {
-                    SetSelectedCounter(_selectedCounter);
+                    SetSelectedCounter(clearCounter);
                 }
             }
             else
@@ -158,10 +158,12 @@ public class Player : MonoBehaviour
 
     private void SetSelectedCounter(ClearCounter selectedCounter)
     {
+        // Update the field, then raise the event with the new selection
+        //Any UI outline (prompt "E"), or sound can subscribe and react instantly
         this._selectedCounter = selectedCounter;
         OnSelectedCounterChanged?.Invoke(this, new OnSelectedCounterChangedEventArgs
         {
-            selectedCounter = selectedCounter
+            SelectedCounter = selectedCounter
         });
     }
 }
